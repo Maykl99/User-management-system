@@ -71,12 +71,15 @@ function getUsers(array $list = [])
      * @var $conn mysqli
      */
     $conn = $GLOBALS['mysqli'];
+    // ORDER BY
+    $orderBy = array_key_exists('orderBy', $list) ? $list['orderBy'] : 'user_name';
+    
     $records = [];
     $limit = getConfig('recordForPage');
     // se non trova il parametro 
     $limit ? getConfig('recordForPage') : 10; 
 
-    $sql = "SELECT * FROM `users` LIMIT $limit";
+    $sql = "SELECT * FROM `users` ORDER BY $orderBy LIMIT $limit";
     $res = $conn->query($sql);
 
     if($res): 
@@ -86,6 +89,7 @@ function getUsers(array $list = [])
     endif;
     return $records;
 }
+
 
 
 //per inserire utenti attivare questa riga!

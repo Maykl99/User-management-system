@@ -1,12 +1,13 @@
-<caption>USERS LIST</caption>
+<?php $page = $_SERVER['PHP_SELF']; ?>
 <table class="table table-striped">
+<caption>USERS LIST</caption>
     <thead>
         <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Fiscal code</th>
-            <th>Email</th>
-            <th>Age</th>
+            <th><a href="<?=$page?>?orderBy=id">ID</a></th>
+            <th><a href="<?=$page?>?orderBy=user_name">Name</a></th>
+            <th><a href="<?=$page?>?orderBy=fiscalcode">Fiscal code</a></th>
+            <th><a href="<?=$page?>?orderBy=email">Email</a></th>
+            <th><a href="<?=$page?>?orderBy=age">Age</a></th>
         </tr>
     </thead>
     <tbody>

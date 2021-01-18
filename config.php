@@ -6,6 +6,9 @@ return [
     'mysql_user' => 'root',
     'mysql_password' => '1234',
     'mysql_db' =>'ums',
-    'recordForPage' => 10
+    'recordForPage' => 10,
+    'orderByColumns' => [
+        'id', 'email', 'fiscalcode', 'age', 'user_name'
+    ]
 ];
 

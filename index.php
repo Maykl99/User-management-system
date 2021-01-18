@@ -4,8 +4,6 @@
     require_once("view/header.php");
 ?>
 
-
-
 <!-- parte centrale -->
 <main class="flex-shrink-0">
   <div class="container">
@@ -18,7 +16,14 @@
           break;
 
         default: 
-        $users = getUsers();
+        $orderBy = getParam('orderBy','id');
+        // evito il problema di valori ambigui passati nella url ad order by 
+        if(!in_array($orderBy, getConfig('orderByColumns'))): 
+          $orderBy = 'id';
+        endif;
+
+        $params = ['orderBy' => $orderBy];
+        $users = getUsers($params);
         require_once 'view/userList.php';
       }
     ?>
