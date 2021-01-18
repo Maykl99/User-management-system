@@ -15,8 +15,8 @@ unset($config);
 if($mysqli->connect_error): 
     die($mysqli->connect_error);
 else: 
-    echo 'connessione riuscita';
-    var_dump($mysqli);
+    echo 'connessione riuscita'.'<br>';
+    //var_dump($mysqli);
 endif;
 
 
