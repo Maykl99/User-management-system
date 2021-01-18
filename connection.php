@@ -1,6 +1,6 @@
 <?php
 // connessione al db
-$config = require_once 'config.php';
+$config = require 'config.php';
 
 $mysqli =new mysqli(
     $config['mysql_host'],

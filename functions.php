@@ -3,6 +3,20 @@ require_once 'vendor/autoload.php';
 require_once 'connection.php';
 
 
+// ritorna il parametro
+function getParam($param, $default = null)
+{
+    return !empty($_REQUEST[$param]) ? $_REQUEST[$param] : $default;
+}   
+
+// ritorna i dati di configurazione
+function getConfig($param)
+{
+    $config = require 'config.php';
+    return array_key_exists($param, $config) ? $config[$param] : null;
+}
+
+
 // generatore automatico di dati,utilizzo faker
 function getRandName_Email_Password()
 {
@@ -48,8 +62,32 @@ function insertRandUser($totale, mysqli $conn)
         endif;
 
     endwhile;
-
-
 }
 
-insertRandUser(30,$GLOBALS['mysqli']);
+// ottieni utenti dal db
+function getUsers(array $list = [])
+{
+    /**
+     * @var $conn mysqli
+     */
+    $conn = $GLOBALS['mysqli'];
+    $records = [];
+    $limit = getConfig('recordForPage');
+    // se non trova il parametro 
+    $limit ? getConfig('recordForPage') : 10; 
+
+    $sql = "SELECT * FROM `users` LIMIT $limit";
+    $res = $conn->query($sql);
+
+    if($res): 
+        while($row = $res->fetch_assoc()): 
+            $records[] = $row;
+        endwhile;
+    endif;
+    return $records;
+}
+
+
+//per inserire utenti attivare questa riga!
+//insertRandUser(30,$GLOBALS['mysqli']);
+
