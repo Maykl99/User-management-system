@@ -9,7 +9,7 @@ function getParam($param, $default = null)
     return !empty($_REQUEST[$param]) ? $_REQUEST[$param] : $default;
 }   
 
-// ritorna i dati di configurazione
+// ottieni i dati di configurazione
 function getConfig($param)
 {
     $config = require 'config.php';
@@ -17,7 +17,7 @@ function getConfig($param)
 }
 
 
-// generatore automatico di dati,utilizzo faker
+// generatore automatico di dati,utilizzo libreria faker, ritorna i valori richiesti dal table users
 function getRandName_Email_Password()
 {
     $listaDati=[];
@@ -70,23 +70,31 @@ function getUsers(array $list = [])
     /**
      * @var $conn mysqli
      */
+
     $conn = $GLOBALS['mysqli'];
+
     // ORDER BY
     $orderBy = array_key_exists('orderBy', $list) ? $list['orderBy'] : 'user_name';
-    
-    $records = [];
-    $limit = getConfig('recordForPage');
-    // se non trova il parametro 
-    $limit ? getConfig('recordForPage') : 10; 
+    $orderDir = array_key_exists('orderDir', $list) ? $list['orderDir'] : 'ASC';
+    $limit = (int) array_key_exists('recordForPage', $list) ? $list['recordForPage'] : 10;
 
-    $sql = "SELECT * FROM `users` ORDER BY $orderBy LIMIT $limit";
+    // evitiamo che ci passano parametri strani 
+    if($orderDir !== 'ASC' && $orderDir !== 'DESC'):
+        $orderDir = 'ASC';
+    endif;
+
+    $records = [];
+
+    $sql = "SELECT * FROM `users` ORDER BY $orderBy $orderDir LIMIT 0, $limit"; // limit non funziona?!
     $res = $conn->query($sql);
+    echo $sql;
 
     if($res): 
         while($row = $res->fetch_assoc()): 
             $records[] = $row;
         endwhile;
     endif;
+    
     return $records;
 }
 

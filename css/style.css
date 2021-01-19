@@ -15,3 +15,14 @@ body{
     font-size: 3.5rem;
   }
 }
+
+
+.table thead th.DESC::after,
+.table thead th.ASC::after{
+  content: '🢁';
+  padding-left: 3px;
+}
+
+.table thead th.DESC::after{
+  content: '🢃'
+}

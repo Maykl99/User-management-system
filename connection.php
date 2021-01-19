@@ -9,14 +9,15 @@ $mysqli =new mysqli(
     $config['mysql_db']
 );
 
-// meglio non lasciare variabili globali
+// meglio non lasciare variabili globali, distruggo la variabile
 unset($config); 
 
 if($mysqli->connect_error): 
-    die($mysqli->connect_error);
-else: 
-    echo 'connessione riuscita'.'<br>';
-    //var_dump($mysqli);
+    die($mysqli->connect_error); 
+
+//else: 
+    //echo 'connessione riuscita'.'<br>';
+    //var_dump($mysqli); // per visualizzare i dati di connessione
 endif;
 
 

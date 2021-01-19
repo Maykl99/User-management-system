@@ -1,6 +1,6 @@
 <?php
 
-// dati di configurazione db locale
+// dati di configurazione db locale e ambiente
 return [
     'mysql_host' => 'localhost:8891',
     'mysql_user' => 'root',
